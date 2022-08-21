@@ -82,7 +82,7 @@ App = {
         return App.initSupplyChain();
     },
 
-    getMetaskAccountID: function () {
+    getMetaskAccountID: async function () {
         web3 = new Web3(App.web3Provider);
 
         // Retrieving accounts
@@ -98,6 +98,9 @@ App = {
     },
 
     initSupplyChain: function () {
+        /// Set default account 
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        
         /// Source the truffle compiled smart contracts
         var jsonSupplyChain='../../build/contracts/SupplyChain.json';
         
@@ -167,7 +170,20 @@ App = {
         event.preventDefault();
         var processId = parseInt($(event.target).data('id'));
 
+        App.readForm();
+
+        console.log(3333,App.upc, 
+            App.metamaskAccountID, 
+            App.originFarmName, 
+            App.originFarmInformation, 
+            App.originFarmLatitude, 
+            App.originFarmLongitude, 
+            App.productNotes)
+
+        
+
         App.contracts.SupplyChain.deployed().then(function(instance) {
+            console.log('contract instanct', instance)
             return instance.harvestItem(
                 App.upc, 
                 App.metamaskAccountID, 
