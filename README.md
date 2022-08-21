@@ -57,9 +57,16 @@ truffle version
 
 
 #### Run Test
+```
+truffle test
+```
 ![Class Diagram](images/test.png)
 
 
+#### Run web
+```
+npm run dev
+```
 
 #### Deploy on testnet
 Contract addresses are in ContractAddress.md
