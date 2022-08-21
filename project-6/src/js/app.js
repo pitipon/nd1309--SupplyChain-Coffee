@@ -100,7 +100,7 @@ App = {
     initSupplyChain: function () {
         /// Set default account 
         web3.eth.defaultAccount = web3.eth.accounts[0];
-        
+
         /// Source the truffle compiled smart contracts
         var jsonSupplyChain='../../build/contracts/SupplyChain.json';
         
@@ -248,9 +248,10 @@ App = {
     buyItem: function (event) {
         event.preventDefault();
         var processId = parseInt($(event.target).data('id'));
-
+        App.readForm();
+        console.log(App.productPrice)
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            const walletValue = web3.toWei(3, "ether");
+            const walletValue = web3.toWei(App.productPrice, "ether");
             return instance.buyItem(App.upc, {from: App.metamaskAccountID, value: walletValue});
         }).then(function(result) {
             $("#ftc-item").text(result);
