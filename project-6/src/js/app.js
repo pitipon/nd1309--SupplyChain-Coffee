@@ -170,17 +170,7 @@ App = {
         event.preventDefault();
         var processId = parseInt($(event.target).data('id'));
 
-        App.readForm();
-
-        console.log(3333,App.upc, 
-            App.metamaskAccountID, 
-            App.originFarmName, 
-            App.originFarmInformation, 
-            App.originFarmLatitude, 
-            App.originFarmLongitude, 
-            App.productNotes)
-
-        
+        App.readForm();   
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
             console.log('contract instanct', instance)
@@ -249,7 +239,7 @@ App = {
         event.preventDefault();
         var processId = parseInt($(event.target).data('id'));
         App.readForm();
-        console.log(App.productPrice)
+
         App.contracts.SupplyChain.deployed().then(function(instance) {
             const walletValue = web3.toWei(App.productPrice, "ether");
             return instance.buyItem(App.upc, {from: App.metamaskAccountID, value: walletValue});
